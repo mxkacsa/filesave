@@ -14,7 +14,6 @@
     <author href="http://valami.hu" email="mxkacsa@gmail.com">Burcz Alex</author>
 
     <!-- Plugins -->
-    <gap:plugin name="com.phonegap.plugins.filesaver" />
         
     <!-- ICONS -->
         
