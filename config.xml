@@ -14,9 +14,11 @@
     <author href="http://valami.hu" email="mxkacsa@gmail.com">Burcz Alex</author>
 
     <!-- Plugins -->
-    <plugin name="File" value="org.apache.cordova.FileUtils" />
-    <plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" />
+    <!--plugin name="File" value="org.apache.cordova.FileUtils" /-->
+    <!--plugin name="FileTransfer" value="org.apache.cordova.FileTransfer" /-->
     <!--gap:plugin name="com.phonegap.plugins.filesaver" /-->
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
         
     <!-- ICONS -->
         
