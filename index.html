@@ -1,28 +1,30 @@
 <html>
+    <head>
+        <script src="cordova.js"></script>
+    </head>
     <body>
-        Write?!
-    </body>
-    <script src="cordova.js"></script>
-    <script>
-        function onLoad() 
-        {
-            document.addEventListener("deviceready", program, false);
-        }
-        function program()
-        {
-            alert('create');
-            //entry.createWriter(win, fail);
-        }
-        /*function win(writer)
-        {
-            writer.onwrite = function(evt) 
+        <p>Write?!</p>
+        <script>
+            function onLoad() 
             {
-                alert("write success");
+                document.addEventListener("deviceready", program, false);
             }
-            writer.write("some sample text");
-        }
-        var fail = function(evt) {
-            alert(error.code);
-        }*/
-    </script>
+            function program()
+            {
+                alert('create');
+                entry.createWriter(win, fail);
+            }
+            function win(writer)
+            {
+                writer.onwrite = function(evt) 
+                {
+                    alert("write success");
+                }
+                writer.write("some sample text");
+            }
+            var fail = function(evt) {
+                alert(error.code);
+            }
+        </script>
+    </body>
 </html>
