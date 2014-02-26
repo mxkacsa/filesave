@@ -6,43 +6,42 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    // Wait for Cordova to load
-    //
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    // Cordova is ready
-    //
     function onDeviceReady() {
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-    }
+               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+               window.resolveLocalFileSystemURI("file:///example.txt", onResolveSuccess, fail);
+               var isApp = 'yes';
+               var root = this;
+               cb = window.plugins.childBrowser;
+               call();
+           }
 
-    function gotFS(fileSystem) {
-        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
-    }
+           function onFileSystemSuccess(fileSystem) {
+               alert(fileSystem.name);
+           }
 
-    function gotFileEntry(fileEntry) {
-        fileEntry.createWriter(gotFileWriter, fail);
-    }
+           function onResolveSuccess(fileEntry) {
+               alert(fileEntry.name);
+           }
 
-    function gotFileWriter(writer) {
-        writer.onwriteend = function(evt) {
-            console.log("contents of file now 'some sample text'");
-            writer.truncate(11);  
-            writer.onwriteend = function(evt) {
-                console.log("contents of file now 'some sample'");
-                writer.seek(4);
-                writer.write(" different text");
-                writer.onwriteend = function(evt){
-                    console.log("contents of file now 'some different text'");
-                }
-            };
-        };
-        writer.write("some sample text");
-    }
+           function fail(evt) {
+               alert(evt.target.error.code);
+           }
 
-    function fail(error) {
-        console.log(error.code);
-    }
+
+           function call(){
+               window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successDirectoryReader, null);
+
+           }
+function successDirectoryReader(fileSystem)
+           {
+               try {
+                   var dirEntry = fileSystem.root;
+                   var directoryReader = dirEntry.createReader();
+                   directoryReader.readEntries(success,failure);
+               } catch (e) {
+                   alert(e);
+               }
+           }
 
     </script>
   </head>
