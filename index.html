@@ -21,36 +21,21 @@
             cw("Cordova running.");
             window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
         }
-
         function gotFS(fileSystem) {
-            cw("run gotFS - readme.txt");
-            fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+            cw("gotFS");
+            fileSystem.root.getDirectory("data", {create: true}, gotDir);
         }
-
-        function gotFileEntry(fileEntry) {
-            cw("run gotFileEntry");
-            fileEntry.createWriter(gotFileWriter, fail);
+        function gotDir(dirEntry) {
+            cw("gotDir");
+            dirEntry.getFile("lockfile.txt", {create: true, exclusive: true}, gotFile);
         }
-
-        function gotFileWriter(writer) {
-            cw("run gotFileWriter");
-            writer.onwriteend = function(evt) {
-                cw("contents of file now 'some sample text'");
-                writer.truncate(11);  
-                writer.onwriteend = function(evt) {
-                    cw("contents of file now 'some sample'");
-                    writer.seek(4);
-                    writer.write(" different text");
-                    writer.onwriteend = function(evt){
-                        cw("contents of file now 'some different text'");
-                    }
-                };
-            };
-            writer.write("some sample text");
+        function gotFile(fileEntry) {
+            cw("gotFile");
+            // Do something with fileEntry here
         }
-
-        function fail(error) {
-            cw("error: "+error.code);
+        function fail()
+        {
+            cw("Failed!");
         }
         
     </script>
