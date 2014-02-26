@@ -7,19 +7,19 @@
     <script src="jquery.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-        /*function onLoad() 
+        function onLoad() 
         {
-            $("#console").append("Page loaded");}
+            $("#console").append("Page loaded");
             document.addEventListener("deviceready", program, false);
-        }*/
-        document.addEventListener("deviceready", program, false);
+        }
+        //document.addEventListener("deviceready", program, false);
         function program()
         {
             $("#console").append("<br>Cordova running.");
         }
     </script>
 </head>
-<body style="margin:0px;">
+<body style="margin:0px;" onload="onLoad()">
     <div id="console" style="background:black;color:white;width:100%;min-height:40px;padding:5px;"></div>
 </body>
 </html>
