@@ -1,20 +1,19 @@
 <html>
     <head>
-        <script src="cordova.js"></script>
-    </head>
-    <body>
-        <p>Write?!</p>
-        <script>
+        <script src="cordova.js" type="text/javascript"></script>
+        <script type="text/javascript">
             function onLoad() 
             {
                 document.addEventListener("deviceready", program, false);
+                console.log("lapload"); 
             }
             function program()
             {
                 alert('create');
-                entry.createWriter(win, fail);
+                console.log("create"); 
+                //entry.createWriter(win, fail);
             }
-            function win(writer)
+            /*function win(writer)
             {
                 writer.onwrite = function(evt) 
                 {
@@ -24,7 +23,10 @@
             }
             var fail = function(evt) {
                 alert(error.code);
-            }
+            }*/
         </script>
+    </head>
+    <body>
+        <p>Write?!</p>
     </body>
 </html>
