@@ -19,9 +19,15 @@
         function program()
         {
             cw("Cordova running.");
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+            writeFile();
         }
-        function gotFS(fileSystem) {
+        function writeFile() {
+            cw("Write foo.txt");
+            navigator.file.write('foo.txt', "This is a test of writing to a file",
+                    fail, fail);
+        }
+        /*function gotFS(fileSystem) {
             cw("gotFS");
             fileSystem.root.getDirectory("data", {create: true}, gotDir);
         }
@@ -36,7 +42,7 @@
         function fail()
         {
             cw("Failed!");
-        }
+        }*/
         
     </script>
 </head>
