@@ -21,11 +21,16 @@
             cw("Cordova running.");
             //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
             writeFile();
+            readFile();
         }
         function writeFile() {
             cw("Write foo.txt");
             navigator.file.write('foo.txt', "This is a test of writing to a file",
                     fail, fail);
+        }
+        function readFile() {
+            cw("reading");
+            cw("File:"+navigator.file.read('foo.txt', fail, fail));
         }
         /*function gotFS(fileSystem) {
             cw("gotFS");
@@ -38,11 +43,11 @@
         function gotFile(fileEntry) {
             cw("gotFile");
             // Do something with fileEntry here
-        }
+        }*/
         function fail()
         {
             cw("Failed!");
-        }*/
+        }
         
     </script>
 </head>
