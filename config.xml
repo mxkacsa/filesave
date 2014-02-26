@@ -12,8 +12,6 @@
     </description>
 
     <author href="http://valami.hu" email="mxkacsa@gmail.com">Burcz Alex</author>
-    
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Plugins -->
     <!--gap:plugin name="com.phonegap.plugins.filesaver" /-->
