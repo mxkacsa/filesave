@@ -1,100 +1,53 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        <form onsubmit="return saveText()">
-            <label for="name">Name</label><br>
-            <input id="name" /><br>
- 
-            <label for="desc">Description</label><br>
-            <input id="desc" /><br>
- 
-            <input type="submit" value="Save" />
-        </form>
- 
- 
-        <dl id="definitions">
- 
-        </dl>
-    </body>
-    <script src="cordova.js"></script>
-    <script>
-        var FILENAME = 'database.db',
-            $ = function (id) {
-                return document.getElementById(id);
-            },
-            failCB = function (msg) {
-                return function () {
-                    alert('[FAIL] ' + msg);
+  <head>
+    <title>FileWriter Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for Cordova to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // Cordova is ready
+    //
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.createWriter(gotFileWriter, fail);
+    }
+
+    function gotFileWriter(writer) {
+        writer.onwriteend = function(evt) {
+            console.log("contents of file now 'some sample text'");
+            writer.truncate(11);  
+            writer.onwriteend = function(evt) {
+                console.log("contents of file now 'some sample'");
+                writer.seek(4);
+                writer.write(" different text");
+                writer.onwriteend = function(evt){
+                    console.log("contents of file now 'some different text'");
                 }
-            },
-            file = {
-                writer: { available: false },
-                reader: { available: false }
-            },
-            dbEntries = [];
- 
-        document.addEventListener('deviceready', function () {
-            var fail = failCB('requestFileSystem');
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-        }, false);
- 
-        function gotFS(fs) {
-            var fail = failCB('getFile');
-            fs.root.getFile(FILENAME, {create: true, exclusive: false},
-                            gotFileEntry, fail);
-        }
- 
-        function gotFileEntry(fileEntry) {
-            var fail = failCB('createWriter');
-            file.entry = fileEntry;
- 
-            fileEntry.createWriter(gotFileWriter, fail);
-            readText();
-        }
- 
-        function gotFileWriter(fileWriter) {
-            file.writer.available = true;
-            file.writer.object = fileWriter;
-        }
- 
-        function saveText(e) {
-            var name = $('name').value,
-                desc = $('desc').value,
-                fail;
- 
-            dbEntries.push('<dt>' + name + '</dt><dd>' + desc + '</dd>')
-            $('name').value = '';
-            $('desc').value = '';
- 
-            $('definitions').innerHTML = dbEntries.join('');
- 
-            if (file.writer.available) {
-                file.writer.available = false;
-                file.writer.object.onwriteend = function (evt) {
-                    file.writer.available = true;
-                    file.writer.object.seek(0);
-                }
-                file.writer.object.write(dbEntries.join("\n"));
-            }
- 
-            return false;
-        }
- 
-        function readText() {
-            if (file.entry) {
-                file.entry.file(function (dbFile) {
-                    var reader = new FileReader();
-                    reader.onloadend = function (evt) {
-                        var textArray = evt.target.result.split("\n");
- 
-                        dbEntries = textArray.concat(dbEntries);
- 
-                        $('definitions').innerHTML = dbEntries.join('');
-                    }
-                    reader.readAsText(dbFile);
-                }, failCB("FileReader"));
-            }
- 
-            return false;
-        }
+            };
+        };
+        writer.write("some sample text");
+    }
+
+    function fail(error) {
+        console.log(error.code);
+    }
+
     </script>
+  </head>
+  <body>
+    <h1>Example</h1>
+    <p>Write File</p>
+  </body>
 </html>
