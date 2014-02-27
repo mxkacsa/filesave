@@ -20,7 +20,7 @@
         {
             cw("Cordova running.");
             //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            writeFileFromSDCard("probaszoveg");
+            //writeFileFromSDCard("probaszoveg");
         } 
 
         // Called to write file to card
@@ -30,10 +30,19 @@
             writer.write(param + "\n", false);              
             cw("file Written to SD Card");
         }
-        
+
+        //read the file
+        function readFile() {
+            var d = navigator.file.read('/sdcard/write.txt', success(), fail());
+            //console.warn(d);
+            cw(d);
+        }
     </script>
 </head>
 <body style="margin:0px;" onload="onLoad()">
     <div id="console" style="background:black;color:white;width:100%;min-height:40px;padding:5px;"></div>
+    <input type="text" id="tartalom" size="20" maxlength="25"><br>
+    <button onclick="writeFileFromSDCard("+$("#tartalom").text()+");">Save</button><br>
+    <button onclick="readFile();">Read the file</button>
 </body>
 </html>
