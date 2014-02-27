@@ -23,42 +23,27 @@
             writeFileFromSDCard("probaszoveg");
         } 
 
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onRequestFileSystemSuccess, null); 
-
-        function onRequestFileSystemSuccess(fileSystem) { 
-                cw('runfunc');
-                var entry=fileSystem.root; 
-                entry.getDirectory("numbergame", {create: true, exclusive: false}, onGetDirectorySuccess, onGetDirectoryFail); 
-        } 
-
-        function onGetDirectorySuccess(dir) { 
-              cw("Created dir "+dir.name); 
-        } 
-
-        function onGetDirectoryFail(error) { 
-             cw("Error creating directory "+error.code); 
-        } 
-
         // Called to write file to card
-        /*function writeFileFromSDCard(param) {
-            var writer = new FileWriter("/sdcard/write.txt");
-            writer.write(param + "\n", false);              
+        function writeFileFromSDCard(param) {
+            /*var writer = new FileWriter("/sdcard/write.txt");
+            writer.write(param + "\n", false);*/
+            navigator.file.read('/sdcard/write.txt', fail, fail);
             cw("file Written to SD Card");
         }
 
         //read the file
         function readFileFromSDCard() {
             cw("start load");
-            var aFileReader = new FileReader();
-            cw( aFileReader.readAsText("numbersgame/write.txt"));
-        }*/
-
+            //var aFileReader = new FileReader();
+            cw(navigator.file.read('/sdcard/write.txt', fail, fail));
+            //cw( aFileReader.readAsText("write.txt"));
+        }
     </script>
 </head>
 <body style="margin:0px;" onload="onLoad()">
     <div id="console" style="background:black;color:white;width:100%;min-height:40px;padding:5px;"></div>
     <input type="text" id="tartalom" size="20" maxlength="25"><br>
-    <button onclick="writeFileFromSDCard('masikszoveg');">Save</button><br>
+    <button onclick="writeFileFromSDCard('alma');">Save</button><br>
     <button onclick="readFileFromSDCard();">Read the file</button>
 </body>
 </html>
