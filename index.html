@@ -25,7 +25,7 @@
 
         // Called to write file to card
            function writeFileFromSDCard() {
-            param = $("#tartalom").text();
+            param = $("#tartalom").value();
             var writer = new FileWriter("/sdcard/write.txt");
             writer.write(param + "\n", false);              
             cw("file Written to SD Card");
@@ -36,6 +36,15 @@
             var d = navigator.file.read('/sdcard/write.txt', success(), fail());
             //console.warn(d);
             cw(d);
+        }
+
+        function success()
+        {
+            cw("success");
+        }
+        function fail()
+        {
+            cw("fail");
         }
     </script>
 </head>
