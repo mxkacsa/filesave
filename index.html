@@ -20,33 +20,15 @@
         {
             cw("Cordova running.");
             //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            writeFile();
-            readFile();
-        }
-        function writeFile() {
-            cw("Write foo.txt");
-            navigator.file.write('foo.txt', "This is a test of writing to a file",
-                    fail, fail);
-        }
-        function readFile() {
-            cw("reading");
-            cw("File:"+navigator.file.read('foo.txt', fail, fail));
-        }
-        /*function gotFS(fileSystem) {
-            cw("gotFS");
-            fileSystem.root.getDirectory("data", {create: true}, gotDir);
-        }
-        function gotDir(dirEntry) {
-            cw("gotDir");
-            dirEntry.getFile("lockfile.txt", {create: true, exclusive: true}, gotFile);
-        }
-        function gotFile(fileEntry) {
-            cw("gotFile");
-            // Do something with fileEntry here
-        }*/
-        function fail()
-        {
-            cw("Failed!");
+            writeFileFromSDCard("probaszoveg");
+        } 
+
+        // Called to write file to card
+           function writeFileFromSDCard(param) {
+
+            var writer = new FileWriter("/sdcard/write.txt");
+            writer.write(param + "\n", false);              
+            cw("file Written to SD Card");
         }
         
     </script>
