@@ -11,7 +11,7 @@
         {
             $("#console").append("<br>"+wstring);
         }
-        /*function onLoad() 
+        function onLoad() 
         {
             $("#console").append("Page loaded");
             document.addEventListener("deviceready", program, false);
@@ -34,74 +34,9 @@
         //read the file
         function readFileFromSDCard() {
             cw("start load");
-            fileSystem.root.getFile("write.txt", null, gotFileEntry, fail);
-
-            //cw( aFileReader.readAsText("sdcard/write.txt"));
-        }
-        function gotFileEntry(fileEntry) {
-            cw("gotFileEntry");
-            fileEntry.file(gotFile, fail);
-        }
-        function gotFile(file){
-            //readDataUrl(file);
-            //readAsText(file);
-            cw("gotfile");
             var aFileReader = new FileReader();
-            cw( aFileReader.readAsText(file));
+            cw( aFileReader.readAsText("write.txt"));
         }
-        function fail(evt) {
-            cw(evt.target.error.code);
-        }*/
-
-         function onLoad() {
-        cw('onload');
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
-
-    // PhoneGap is ready
-    //
-    function onDeviceReady() {
-        cw('deviceready');
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-    }
-
-    function gotFS(fileSystem) {
-        cw('gotfs');
-        fileSystem.root.getFile("write.txt", null, gotFileEntry, fail);
-    }
-
-    function gotFileEntry(fileEntry) {
-        cw('gotfileentry');
-        fileEntry.file(gotFile, fail);
-    }
-
-    function gotFile(file){
-        cw('gotfile');
-        readDataUrl(file);
-        readAsText(file);
-    }
-
-    function readDataUrl(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            cw("Read as data URL");
-            cw(evt.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function readAsText(file) {
-        var reader = new FileReader();
-        reader.onloadend = function(evt) {
-            cw("Read as text");
-            cw(evt.target.result);
-        };
-        reader.readAsText(file);
-    }
-
-    function fail(evt) {
-        cw(evt.target.error.code);
-    }
 
     </script>
 </head>
