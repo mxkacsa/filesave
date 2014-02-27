@@ -38,13 +38,15 @@
             var reader = new FileReader();
             reader.onloadend = function(evt) {
                 cw("Read as text");
-                cw(evt.target.result);
                 cw("content : "+evt.target.result);
             };
             reader.readAsText(file);
             cw(reader.readAsText(file));
         }
-
+        var fail = function(evt) {
+            cw(error.code);
+        }
+        entry.file(readfile,fail);
         /*function success()
         {
             cw("success");
