@@ -35,8 +35,8 @@
         function readFileFromSDCard() {
             var aFileReader = new FileReader();
             reader.onloadend = function(evt) {
-                console.log("Read as data URL");
-                console.log(evt.target.result);
+                cw("Read as data URL");
+                cw(evt.target.result);
             };
             cw( aFileReader.readAsText("/sdcard/write.txt"));
         }
