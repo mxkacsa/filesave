@@ -33,16 +33,19 @@
 
         //read the file
         function readFileFromSDCard() {
+            cw("start load");
             fileSystem.root.getFile("write.txt", null, gotFileEntry, fail);
 
-            cw( aFileReader.readAsText("sdcard/write.txt"));
+            //cw( aFileReader.readAsText("sdcard/write.txt"));
         }
         function gotFileEntry(fileEntry) {
+            cw("gotFileEntry");
             fileEntry.file(gotFile, fail);
         }
         function gotFile(file){
             //readDataUrl(file);
             //readAsText(file);
+            cw("gotfile");
             var aFileReader = new FileReader();
             cw( aFileReader.readAsText(file));
         }
