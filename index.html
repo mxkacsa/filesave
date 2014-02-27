@@ -11,7 +11,7 @@
         {
             $("#console").append("<br>"+wstring);
         }
-        function onLoad() 
+        /*function onLoad() 
         {
             $("#console").append("Page loaded");
             document.addEventListener("deviceready", program, false);
@@ -51,7 +51,52 @@
         }
         function fail(evt) {
             cw(evt.target.error.code);
-        }
+        }*/
+
+         function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // PhoneGap is ready
+    //
+    function onDeviceReady() {
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+    }
+
+    function gotFS(fileSystem) {
+        fileSystem.root.getFile("write.txt", null, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.file(gotFile, fail);
+    }
+
+    function gotFile(file){
+        readDataUrl(file);
+        readAsText(file);
+    }
+
+    function readDataUrl(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            cw("Read as data URL");
+            cw(evt.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function readAsText(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+            cw("Read as text");
+            cw(evt.target.result);
+        };
+        reader.readAsText(file);
+    }
+
+    function fail(evt) {
+        cw(evt.target.error.code);
+    }
 
     </script>
 </head>
