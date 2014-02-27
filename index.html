@@ -33,9 +33,17 @@
         //read the file
         function readFileFromSDCard() {
             cw("start load");
-            var aFileReader = new FileReader();
+            /*var aFileReader = new FileReader();
             var string = aFileReader.readAsText("/sdcard/write.txt");
-            cw(string);
+            cw(string);*/
+            fileSystem.root.getFile("write.txt", {create:true}, readFile, onError);
+        }
+
+        function readFile()
+        {
+            reader = new FileReader();
+            reader.readAsText(f);
+            cw('readed');
         }
 
     </script>
