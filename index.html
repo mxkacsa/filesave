@@ -31,7 +31,11 @@
         }
 
         //read the file
-        function readFile(file) {
+        function readFileFromSDCard() {
+            var aFileReader = new FileReader();
+            alert( aFileReader.readAsText("/sdcard/userdata.txt"));
+        }
+        /*function readFile(file) {
             //var d = navigator.file.read('write.txt', success(), fail());
             //console.warn(d);
             //cw(d);
@@ -46,7 +50,7 @@
         var fail = function(evt) {
             cw(error.code);
         }
-        entry.file(readfile,fail);
+        entry.file(readfile,fail);*/
         /*function success()
         {
             cw("success");
