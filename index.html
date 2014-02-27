@@ -20,38 +20,45 @@
         {
             cw("Cordova running.");
             //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            //writeFileFromSDCard("probaszoveg");
+            writeFileFromSDCard("probaszoveg");
         } 
 
         // Called to write file to card
-           function writeFileFromSDCard() {
-            param = $("#tartalom").value();
+           function writeFileFromSDCard(param) {
             var writer = new FileWriter("/sdcard/write.txt");
             writer.write(param + "\n", false);              
             cw("file Written to SD Card");
         }
 
         //read the file
-        function readFile() {
-            var d = navigator.file.read('/sdcard/write.txt', success(), fail());
+        function readFile(file) {
+            //var d = navigator.file.read('write.txt', success(), fail());
             //console.warn(d);
-            cw(d);
+            //cw(d);
+            var reader = new FileReader();
+            reader.onloadend = function(evt) {
+                cw("Read as text");
+                cw(evt.target.result);
+                cw("content : "+evt.target.result);
+            };
+            reader.readAsText(file);
+            cw(reader.readAsText(file));
         }
 
-        function success()
+        /*function success()
         {
             cw("success");
         }
         function fail()
         {
             cw("fail");
-        }
+        }*/
     </script>
 </head>
 <body style="margin:0px;" onload="onLoad()">
     <div id="console" style="background:black;color:white;width:100%;min-height:40px;padding:5px;"></div>
     <input type="text" id="tartalom" size="20" maxlength="25"><br>
-    <button onclick="writeFileFromSDCard();">Save</button><br>
-    <button onclick="readFile();">Read the file</button>
+    <button onclick="writeFileFromSDCard('masikszoveg');">Save</button><br>
+    <button onclick="readFile(write.txt);">Read the file</button>
 </body>
 </html>
