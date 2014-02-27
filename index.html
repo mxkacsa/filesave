@@ -25,17 +25,16 @@
 
         // Called to write file to card
            function writeFileFromSDCard(param) {
-            var writer = new FileWriter("/sdcard/write.txt");
+            var writer = new FileWriter("/sdcard/numbersgame/write.txt");
             writer.write(param + "\n", false);              
             cw("file Written to SD Card");
-            cw("Path: " + writer.fullPath);
         }
 
         //read the file
         function readFileFromSDCard() {
             cw("start load");
             var aFileReader = new FileReader();
-            cw( aFileReader.readAsText("write.txt"));
+            cw( aFileReader.readAsText("numbersgame/write.txt"));
         }
 
     </script>
