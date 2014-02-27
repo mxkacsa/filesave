@@ -23,9 +23,25 @@
             writeFileFromSDCard("probaszoveg");
         } 
 
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onRequestFileSystemSuccess, null); 
+
+        function onRequestFileSystemSuccess(fileSystem) { 
+                cw('runfunc');
+                var entry=fileSystem.root; 
+                entry.getDirectory("numbergame", {create: true, exclusive: false}, onGetDirectorySuccess, onGetDirectoryFail); 
+        } 
+
+        function onGetDirectorySuccess(dir) { 
+              cw("Created dir "+dir.name); 
+        } 
+
+        function onGetDirectoryFail(error) { 
+             cw("Error creating directory "+error.code); 
+        } 
+
         // Called to write file to card
-           function writeFileFromSDCard(param) {
-            var writer = new FileWriter("/sdcard/numbersgame/write.txt");
+        /*function writeFileFromSDCard(param) {
+            var writer = new FileWriter("/sdcard/write.txt");
             writer.write(param + "\n", false);              
             cw("file Written to SD Card");
         }
@@ -35,7 +51,7 @@
             cw("start load");
             var aFileReader = new FileReader();
             cw( aFileReader.readAsText("numbersgame/write.txt"));
-        }
+        }*/
 
     </script>
 </head>
