@@ -25,19 +25,19 @@
 
         // Called to write file to card
         function writeFileFromSDCard(param) {
-            /*var writer = new FileWriter("/sdcard/write.txt");
-            writer.write(param + "\n", false);*/
-            navigator.file.read('/sdcard/write.txt', fail, fail);
+            var writer = new FileWriter("/sdcard/write.txt");
+            writer.write(param + "\n", false);              
             cw("file Written to SD Card");
         }
 
         //read the file
         function readFileFromSDCard() {
             cw("start load");
-            //var aFileReader = new FileReader();
-            cw(navigator.file.read('/sdcard/write.txt', fail, fail));
-            //cw( aFileReader.readAsText("write.txt"));
+            var aFileReader = new FileReader();
+            aFileReader.readAsText("write.txt");
+            cw(aFileReader);
         }
+
     </script>
 </head>
 <body style="margin:0px;" onload="onLoad()">
