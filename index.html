@@ -34,8 +34,8 @@
         function readFileFromSDCard() {
             cw("start load");
             var aFileReader = new FileReader();
-            aFileReader.readAsText("write.txt");
-            cw(aFileReader);
+            var string = aFileReader.readAsText("write.txt");
+            cw(string);
         }
 
     </script>
