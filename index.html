@@ -8,12 +8,17 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
         // Wait for PhoneGap to load
+        function cw(wstring)
+        {
+            $("#console").append("<br>"+wstring);
+        }
     //
     document.addEventListener("deviceready", onDeviceReady, false);
 
     // PhoneGap is ready
     //
     function onDeviceReady() {
+        cw('add');
         var db = window.openDatabase("Database", "1.0", "PhoneGap Demo", 200000);
         db.transaction(populateDB, errorCB, successCB);
     }
@@ -21,6 +26,7 @@
     // Populate the database 
     //
     function populateDB(tx) {
+        cw('insert');
          tx.executeSql('DROP TABLE IF EXISTS DEMO');
          tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
          tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
@@ -30,18 +36,19 @@
     // Transaction error callback
     //
     function errorCB(tx, err) {
-        alert("Error processing SQL: "+err);
+        cw("Error processing SQL: "+err);
     }
 
     // Transaction success callback
     //
     function successCB() {
-        alert("success!");
+        cw("success!");
     }
 
     </script>
 </head>
 <body style="margin:0px;">
+    <div id="console" style="background:black;color:white;width:100%;min-height:40px;padding:5px;"></div>
     <h1>Example</h1>
     <p>Database</p>
 </body>
