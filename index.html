@@ -19,9 +19,30 @@
         function program()
         {
             cw("Cordova running.");
-            var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+            //var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+            var db = window.openDatabase("Database", "1.0", "PhoneGap Demo", 200000);
+            db.transaction(populateDB, errorCB, successCB);
             cw("db Loaded");
         }
+
+
+
+        function populateDB(tx) {
+             tx.executeSql('DROP TABLE IF EXISTS DEMO');
+             tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+             tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+             tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+        }
+
+        function errorCB(err) {
+            cw("Error processing SQL: "+err.code);
+        }
+
+        function successCB() {
+            cw("success!");
+        }
+
+        
 
     </script>
 </head>
