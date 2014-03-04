@@ -7,49 +7,42 @@
     <script src="jquery.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript">
-        function cw(wstring)
-        {
-            $("#console").append("<br>"+wstring);
-        }
-        function onLoad() 
-        {
-            $("#console").append("Page loaded");
-            document.addEventListener("deviceready", program, false);
-        }
-        function program()
-        {
-            cw("Cordova running.");
-            //var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
-            var db = window.openDatabase("Database", "1.0", "PhoneGap Demo", 200000);
-            db.transaction(populateDB, errorCB, successCB);
-            cw("db Loaded");
-        }
+        // Wait for PhoneGap to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
 
+    // PhoneGap is ready
+    //
+    function onDeviceReady() {
+        var db = window.openDatabase("Database", "1.0", "PhoneGap Demo", 200000);
+        db.transaction(populateDB, errorCB, successCB);
+    }
 
+    // Populate the database 
+    //
+    function populateDB(tx) {
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+         tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+    }
 
-        function populateDB(tx) {
-             tx.executeSql('DROP TABLE IF EXISTS DEMO');
-             tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
-             tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
-             tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
-        }
+    // Transaction error callback
+    //
+    function errorCB(tx, err) {
+        alert("Error processing SQL: "+err);
+    }
 
-        function errorCB(err) {
-            cw("Error processing SQL: "+err.code);
-        }
-
-        function successCB() {
-            cw("success!");
-        }
-
-        
+    // Transaction success callback
+    //
+    function successCB() {
+        alert("success!");
+    }
 
     </script>
 </head>
-<body style="margin:0px;" onload="onLoad()">
-    <div id="console" style="background:black;color:white;width:100%;min-height:40px;padding:5px;"></div>
-    <input type="text" id="tartalom" size="20" maxlength="25"><br>
-    <button onclick="writeFileFromSDCard('alma');">Save</button><br>
-    <button onclick="readFileFromSDCard();">Read the file</button>
+<body style="margin:0px;">
+    <h1>Example</h1>
+    <p>Database</p>
 </body>
 </html>
