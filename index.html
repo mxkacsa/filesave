@@ -19,31 +19,8 @@
         function program()
         {
             cw("Cordova running.");
-            //window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-            writeFileFromSDCard("probaszoveg");
-        } 
-
-        // Called to write file to card
-        function writeFileFromSDCard(param) {
-            var writer = new FileWriter("/sdcard/write.txt");
-            writer.write(param + "\n", false);              
-            cw("file Written to SD Card");
-        }
-
-        //read the file
-        function readFileFromSDCard() {
-            cw("start load");
-            /*var aFileReader = new FileReader();
-            var string = aFileReader.readAsText("/sdcard/write.txt");
-            cw(string);*/
-            fileSystem.root.getFile("write.txt", {create:true}, readFile, onError);
-        }
-
-        function readFile()
-        {
-            reader = new FileReader();
-            reader.readAsText(f);
-            cw('readed');
+            var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
+            cw("db Loaded");
         }
 
     </script>
